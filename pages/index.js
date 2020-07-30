@@ -14,11 +14,11 @@ function Index() {
   let [curPage, setCurPage] = useState(0)
 
   useTorttledEffect(async () => {
-    if(!images.length){
-      return setPreview('')      
+    if (!images.length) {
+      return setPreview('')
     }
     let preview = await mergeBase64(await Promise.all(images.map(async ({ img, rotate }) => {
-      return await rotateImage(img, rotate)
+      return await rotateImage(img, rotate, undefined, 1)
     })))
     setPreview(preview)
   }, 600, [images])
@@ -31,7 +31,7 @@ function Index() {
       upload pdf:{' '}<input type="file" accept="application/pdf" onChange={async e => {
         const pdf = e.target.files[0]
         if (!pdf) return
-        let images = await pdf2images(pdf)
+        let images = await pdf2images(pdf, { quality: 1, scale: 1.5 })
         setImages(images.map(img => ({ img, rotate: 0 })))
       }} />
     </div>
