@@ -38,7 +38,7 @@ function Index() {
     <div className="item2">
       full preview:<br />
       {preview
-        ? (<img src={preview} />)
+        ? (<img src={preview} style={{maxWidth:'100%'}} />)
         : 'no preview'}
     </div>
     <div className="item3">
@@ -62,6 +62,7 @@ function Index() {
             transform: `rotate(${rotate}deg)`
           }} />
           <input type="range" min={0} max={360} step={1} value={rotate} onChange={e => {
+            setCurPage(i)
             let t = images.concat()
             t[i] = {
               img,
